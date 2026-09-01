@@ -1,0 +1,45 @@
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid var(--color-linea);
+  color: inherit;
+  text-decoration: none;
+}
+
+.tarjeta:hover {
+  border-color: var(--color-texto);
+}
+
+.tarjeta:hover .tarjeta__titulo {
+  color: var(--color-acento);
+}
+
+.tarjeta__imagen {
+  width: 100%;
+  height: auto;
+  /* Reserva el hueco antes de cargar: evita que la rejilla salte. */
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: var(--color-linea);
+}
+
+.tarjeta__cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  border-top: 1px solid var(--color-linea);
+}
+
+.tarjeta__titulo {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.tarjeta__meta {
+  font-size: 0.8125rem;
+  color: var(--color-texto-secundario);
+}

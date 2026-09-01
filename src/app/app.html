@@ -1,0 +1,31 @@
+<a class="salto-contenido" href="#principal">Saltar al contenido</a>
+
+<header class="cabecera">
+  <div class="contenedor cabecera__interior">
+    <a class="cabecera__marca" routerLink="/">Recetario</a>
+    <p class="cabecera__nota">Datos de TheMealDB</p>
+  </div>
+</header>
+
+<main id="principal">
+  <router-outlet />
+</main>
+
+<footer class="pie">
+  <div class="contenedor pie__interior">
+    <p class="pie__texto">
+      Angular · Datos de
+      <a class="enlace" href="https://www.themealdb.com" target="_blank" rel="noopener noreferrer">
+        TheMealDB
+      </a>
+    </p>
+    <a
+      class="enlace"
+      href="https://github.com/lrjesusalberto/recipe-finder"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Código en GitHub
+    </a>
+  </div>
+</footer>

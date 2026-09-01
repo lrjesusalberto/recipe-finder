@@ -1,0 +1,25 @@
+<a class="tarjeta" [routerLink]="['/receta', receta().id]">
+  <img
+    class="tarjeta__imagen"
+    [src]="receta().imagen"
+    [alt]="receta().nombre"
+    [attr.loading]="prioritaria() ? 'eager' : 'lazy'"
+    [attr.fetchpriority]="prioritaria() ? 'high' : 'auto'"
+    width="400"
+    height="400"
+  />
+
+  <div class="tarjeta__cuerpo">
+    <h3 class="tarjeta__titulo">{{ receta().nombre }}</h3>
+
+    @if (receta().categoria || receta().origen) {
+      <p class="tarjeta__meta">
+        {{ receta().categoria }}
+        @if (receta().categoria && receta().origen) {
+          <span aria-hidden="true"> · </span>
+        }
+        {{ receta().origen }}
+      </p>
+    }
+  </div>
+</a>

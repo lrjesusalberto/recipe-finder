@@ -1,0 +1,153 @@
+.portada {
+  border-bottom: 1px solid var(--color-linea);
+  padding: 64px 0;
+}
+
+.portada__titulo {
+  max-width: 18ch;
+  font-size: clamp(2.25rem, 6vw, 4rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+.portada__texto {
+  margin-top: 16px;
+  max-width: 46ch;
+  color: var(--color-texto-secundario);
+  font-size: 1.0625rem;
+}
+
+.buscador {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 32px;
+  max-width: 640px;
+}
+
+.buscador__campo {
+  flex: 1 1 260px;
+  min-width: 0;
+  padding: 12px 16px;
+  border: 1px solid var(--color-linea);
+  border-radius: 0;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: inherit;
+  font-size: 1rem;
+  appearance: none;
+}
+
+.buscador__campo:focus-visible {
+  outline: 2px solid var(--color-acento);
+  outline-offset: -1px;
+  border-color: var(--color-acento);
+}
+
+.seccion {
+  padding-top: 48px;
+}
+
+.seccion:last-child {
+  padding-bottom: 80px;
+}
+
+/* --- Categorias --- */
+
+.categorias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.categorias__boton {
+  padding: 8px 16px;
+  border: 1px solid var(--color-linea);
+  border-radius: 0;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.categorias__boton:hover {
+  border-color: var(--color-texto);
+}
+
+.categorias__boton--activa {
+  border-color: var(--color-acento);
+  background: var(--color-acento);
+  color: #ffffff;
+}
+
+.categorias__boton--activa:hover {
+  border-color: var(--color-acento);
+  background: var(--color-acento);
+}
+
+/* --- Resultados --- */
+
+.resultados__cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--color-texto);
+}
+
+.resultados__cuenta {
+  color: var(--color-texto-secundario);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--canal);
+}
+
+/* Ocupa el mismo espacio que una tarjeta para que nada salte al cargar. */
+.esqueleto {
+  border: 1px solid var(--color-linea);
+  background: #f5f5f5;
+  aspect-ratio: 1 / 1.28;
+}
+
+/* --- Avisos --- */
+
+.aviso {
+  padding: 64px 0;
+  border-top: 1px solid var(--color-linea);
+}
+
+.aviso__titulo {
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.aviso__texto {
+  margin-top: 8px;
+  margin-bottom: 24px;
+  color: var(--color-texto-secundario);
+}
+
+@media (max-width: 760px) {
+  .portada {
+    padding: 40px 0;
+  }
+
+  .rejilla {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .buscador .boton {
+    flex: 1 1 auto;
+  }
+}

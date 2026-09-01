@@ -1,0 +1,113 @@
+<section class="portada">
+  <div class="contenedor">
+    <h1 class="portada__titulo">Encuentra tu próxima receta</h1>
+    <p class="portada__texto">
+      Busca entre cientos de recetas por nombre o explora por categoría.
+    </p>
+
+    <div class="buscador">
+      <label class="visualmente-oculto" for="buscar">Buscar recetas por nombre</label>
+      <input
+        class="buscador__campo"
+        id="buscar"
+        type="search"
+        placeholder="Pollo, pasta, curry…"
+        autocomplete="off"
+        [value]="termino()"
+        (input)="buscar($any($event.target).value)"
+      />
+      <button class="boton boton--secundario" type="button" (click)="sorprender()">
+        Sorpréndeme
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Categorias -->
+<section class="seccion contenedor" aria-labelledby="titulo-categorias">
+  <h2 class="titulo-seccion" id="titulo-categorias">Categorías</h2>
+
+  <ul class="categorias">
+    @for (categoria of categorias(); track categoria.id) {
+      <li>
+        <button
+          class="categorias__boton"
+          type="button"
+          [class.categorias__boton--activa]="categoriaActiva() === categoria.nombre"
+          [attr.aria-pressed]="categoriaActiva() === categoria.nombre"
+          (click)="filtrarPor(categoria.nombre)"
+        >
+          {{ categoria.nombre }}
+        </button>
+      </li>
+    }
+  </ul>
+</section>
+
+<!-- Resultados -->
+<section class="seccion contenedor" aria-labelledby="titulo-resultados">
+  <div class="resultados__cabecera">
+    <h2 class="titulo-seccion" id="titulo-resultados">
+      @if (categoriaActiva()) {
+        {{ categoriaActiva() }}
+      } @else if (consulta()) {
+        Resultados para «{{ consulta() }}»
+      } @else {
+        Recetas
+      }
+    </h2>
+
+    @if (!cargando() && !error() && resultados().length > 0) {
+      <p class="resultados__cuenta">
+        {{ resultados().length }}
+        {{ resultados().length === 1 ? 'receta' : 'recetas' }}
+      </p>
+    }
+  </div>
+
+  <!-- Los cambios de estado se anuncian a los lectores de pantalla. -->
+  <div aria-live="polite">
+    @if (cargando()) {
+      <ul class="rejilla">
+        @for (hueco of [1, 2, 3, 4, 5, 6, 7, 8]; track hueco) {
+          <li class="esqueleto" aria-hidden="true"></li>
+        }
+      </ul>
+      <p class="visualmente-oculto">Cargando recetas…</p>
+    } @else if (error()) {
+      <div class="aviso">
+        <p class="aviso__titulo">No se han podido cargar las recetas</p>
+        <p class="aviso__texto">Comprueba tu conexión e inténtalo de nuevo.</p>
+        <button class="boton" type="button" (click)="reintentar()">Reintentar</button>
+      </div>
+    } @else if (resultados().length === 0) {
+      <div class="aviso">
+        <p class="aviso__titulo">
+          @if (consulta()) {
+            No hay recetas para «{{ consulta() }}»
+          } @else {
+            Busca una receta
+          }
+        </p>
+        <p class="aviso__texto">
+          @if (consulta()) {
+            Prueba con otro término o elige una categoría.
+          } @else {
+            Escribe en el buscador o elige una categoría para empezar.
+          }
+        </p>
+      </div>
+    } @else {
+      <ul class="rejilla">
+        @for (receta of resultados(); track receta.id; let i = $index) {
+          <li>
+            <app-tarjeta-receta
+              [receta]="receta"
+              [prioritaria]="i < prioritarias"
+            />
+          </li>
+        }
+      </ul>
+    }
+  </div>
+</section>

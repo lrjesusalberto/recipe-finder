@@ -1,0 +1,198 @@
+/**
+ * Estilo Swiss / International Typographic Style.
+ *
+ * Jerarquia por tamaño y peso, rejilla estricta, alineacion a la izquierda.
+ * Sin sombras, sin degradados, sin border-radius. El azul se reserva para
+ * enlaces y elementos interactivos.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap');
+
+:root {
+  --color-fondo: #ffffff;
+  --color-texto: #0a0a0a;
+  --color-texto-secundario: #6b6b6b;
+  --color-linea: #e0e0e0;
+  --color-acento: #0040ff;
+  --color-error: #c0161d;
+
+  --fuente:
+    'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --ancho-max: 1200px;
+  --margen: 40px;
+  --canal: 24px;
+  --escala-texto: 16px;
+  --alto-cabecera: 72px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--fuente);
+  font-size: var(--escala-texto);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+}
+
+.contenedor {
+  width: 100%;
+  max-width: var(--ancho-max);
+  margin: 0 auto;
+  padding: 0 var(--margen);
+}
+
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Visible solo al tabular: primer destino del teclado. */
+.salto-contenido {
+  position: absolute;
+  left: -9999px;
+  z-index: 20;
+  padding: 12px 20px;
+  background: var(--color-texto);
+  color: var(--color-fondo);
+  text-decoration: none;
+}
+
+.salto-contenido:focus {
+  left: var(--margen);
+  top: 12px;
+}
+
+/* --- Elementos compartidos --- */
+
+.titulo-seccion {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-texto-secundario);
+}
+
+.enlace {
+  color: var(--color-acento);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.enlace:hover {
+  color: var(--color-texto);
+}
+
+.enlace:focus-visible,
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-acento);
+  outline-offset: 2px;
+}
+
+.boton {
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 0;
+  background: var(--color-acento);
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.boton:hover {
+  background: var(--color-texto);
+}
+
+.boton--secundario {
+  border: 1px solid var(--color-linea);
+  background: var(--color-fondo);
+  color: var(--color-texto);
+}
+
+.boton--secundario:hover {
+  border-color: var(--color-texto);
+  background: var(--color-fondo);
+}
+
+/* --- Adaptacion por ancho --- */
+
+@media (max-width: 760px) {
+  :root {
+    --margen: 20px;
+    --canal: 16px;
+    --escala-texto: 15px;
+    --alto-cabecera: 64px;
+  }
+}
+
+@media (min-width: 1800px) {
+  :root {
+    --ancho-max: 1440px;
+    --escala-texto: 17px;
+    --margen: 56px;
+  }
+}
+
+@media (min-width: 2400px) {
+  :root {
+    --ancho-max: 1680px;
+    --escala-texto: 18.5px;
+    --canal: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

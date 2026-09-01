@@ -1,0 +1,115 @@
+<div class="contenedor">
+  <nav class="migas" aria-label="Navegación">
+    <button class="migas__volver" type="button" (click)="volver()">
+      <span aria-hidden="true">←</span> Volver
+    </button>
+  </nav>
+
+  <div aria-live="polite">
+    @if (cargando()) {
+      <div class="esqueleto-detalle" aria-hidden="true">
+        <div class="esqueleto-detalle__imagen"></div>
+        <div class="esqueleto-detalle__texto"></div>
+      </div>
+      <p class="visualmente-oculto">Cargando la receta…</p>
+    } @else if (error()) {
+      <div class="aviso">
+        <p class="aviso__titulo">No se ha podido cargar la receta</p>
+        <p class="aviso__texto">Comprueba tu conexión e inténtalo de nuevo.</p>
+        <button class="boton" type="button" (click)="reintentar()">Reintentar</button>
+      </div>
+    } @else if (noEncontrada()) {
+      <div class="aviso">
+        <p class="aviso__titulo">Esta receta no existe</p>
+        <p class="aviso__texto">Puede que el enlace esté mal o que se haya retirado.</p>
+        <a class="boton" routerLink="/">Ver todas las recetas</a>
+      </div>
+    } @else if (receta(); as r) {
+      <article class="receta">
+        <header class="receta__cabecera">
+          <h1 class="receta__titulo">{{ r.nombre }}</h1>
+
+          <p class="receta__meta">
+            <span class="receta__etiqueta">{{ r.categoria }}</span>
+            <span class="receta__etiqueta">{{ r.origen }}</span>
+            @for (etiqueta of r.etiquetas; track etiqueta) {
+              <span class="receta__etiqueta">{{ etiqueta }}</span>
+            }
+          </p>
+        </header>
+
+        <div class="receta__cuerpo">
+          <div class="receta__principal">
+            <img
+              class="receta__imagen"
+              [src]="r.imagen"
+              [alt]="r.nombre"
+              width="800"
+              height="600"
+              fetchpriority="high"
+            />
+
+            <section aria-labelledby="titulo-pasos">
+              <h2 class="titulo-seccion" id="titulo-pasos">Preparación</h2>
+
+              @if (r.instrucciones.length > 0) {
+                <ol class="pasos">
+                  @for (paso of r.instrucciones; track $index) {
+                    <li class="pasos__paso">
+                      <span class="pasos__numero" aria-hidden="true">
+                        {{ $index + 1 }}
+                      </span>
+                      <p class="pasos__texto">{{ paso }}</p>
+                    </li>
+                  }
+                </ol>
+              } @else {
+                <p class="receta__sin-datos">Esta receta no incluye instrucciones.</p>
+              }
+            </section>
+
+            @if (r.video && urlVideo(r.video); as video) {
+              <section aria-labelledby="titulo-video">
+                <h2 class="titulo-seccion" id="titulo-video">Vídeo</h2>
+                <div class="video">
+                  <iframe
+                    class="video__marco"
+                    [src]="video"
+                    [title]="'Vídeo de la receta ' + r.nombre"
+                    loading="lazy"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              </section>
+            }
+          </div>
+
+          <aside class="receta__lateral" aria-labelledby="titulo-ingredientes">
+            <h2 class="titulo-seccion" id="titulo-ingredientes">
+              Ingredientes ({{ r.ingredientes.length }})
+            </h2>
+
+            <ul class="ingredientes">
+              @for (ingrediente of r.ingredientes; track ingrediente.nombre) {
+                <li class="ingredientes__fila">
+                  <span class="ingredientes__nombre">{{ ingrediente.nombre }}</span>
+                  @if (ingrediente.cantidad) {
+                    <span class="ingredientes__cantidad">{{ ingrediente.cantidad }}</span>
+                  }
+                </li>
+              }
+            </ul>
+
+            @if (r.fuente) {
+              <p class="receta__fuente">
+                <a class="enlace" [href]="r.fuente" target="_blank" rel="noopener noreferrer">
+                  Receta original
+                </a>
+              </p>
+            }
+          </aside>
+        </div>
+      </article>
+    }
+  </div>
+</div>
