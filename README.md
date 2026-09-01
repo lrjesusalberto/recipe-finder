@@ -4,6 +4,8 @@ Buscador de recetas construido con **Angular 22**: búsqueda por nombre, filtrad
 y ficha completa con ingredientes y preparación paso a paso. Los datos vienen de
 [TheMealDB](https://www.themealdb.com).
 
+**Demo:** https://recipes.jesuslozano.dev
+
 ## Qué hace
 
 - **Búsqueda por nombre** con retardo, para no llamar a la API en cada tecla.
